@@ -33,6 +33,7 @@
 \usepackage{graphicx} %para insertar graficos
 \usepackage{parskip} % npi de q es
 \usepackage{color} %colores
+\usepackage{float}
 
 
 % These packages are all incorporated in the memoir class to one degree or another...
@@ -110,12 +111,13 @@
 \section{Diagramas de casos de uso }
 
 \begin{center}
-Presentacion del Diagrama de Casos de Uso del proyecto en plataforma Android.
-\\\
-	\begin{figure}
+Presentacion del Diagrama de Casos de Uso del proyecto en plataforma Android.\ref{fig:casosdeusos}
+
+	\begin{figure}[h!]
   		\centering
-    		\includegraphics[width=0.5\textwidth]{imagenes/casosdeusos.png}
+    		\includegraphics[width=0.3\textwidth]{imagenes/casosdeusos.png}
   		\caption{Casos de Usos}
+		\label{fig:casosdeusos}
 	\end{figure}
 \end{center}
 
@@ -125,12 +127,13 @@ Presentacion del Diagrama de Casos de Uso del proyecto en plataforma Android.
 \section{Diagrama de clases }
 
 \begin{center}
-Presentacion del Diagrama de Clases para el proyecto en plataforma Android.
+Presentacion del Diagrama de Clases para el proyecto en plataforma Android.\ref{fig:diagclass}
 \\\
-	\begin{figure}[htb]
+	\begin{figure}[h!]
   		\centering
     		\includegraphics[width=0.7\textwidth]{imagenes/buscamina_diagclass.png}
   		\caption{Diagrama de Clases}
+		\label{fig:diagclass}
 	\end{figure}
 \end{center}
 
