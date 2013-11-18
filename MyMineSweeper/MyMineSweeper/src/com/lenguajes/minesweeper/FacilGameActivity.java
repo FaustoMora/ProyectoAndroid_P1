@@ -4,57 +4,47 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.FrameLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 
-public class NwGameDisplayActivity extends Activity {
+public class FacilGameActivity extends Activity {
 	
+	Button tablero[][];
+	TableLayout tabla;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_nw_game_display);
+		setContentView(R.layout.activity_facil_game);
+		
+		tabla = (TableLayout)findViewById(R.id.tablero_facil);
+		 
+		 for(int fila=0;fila<8;fila++){
+			 
+			 TableRow row = new TableRow(this);
+			 row.setLayoutParams(new LayoutParams(300,300));
+			 
+			 for(int colum=0; colum<8;colum++){
+				 
+				 this.tablero[fila][colum]= new Button(this);
+				 this.tablero[fila][colum].setLayoutParams(new LayoutParams(300,300));
+				 
+				 row.addView(this.tablero[fila][colum]);
+			 }
+			 tabla.addView(row,new LayoutParams(300,300));
+		 }
+		 
+		 setContentView(tabla);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		Button button1 = (Button) findViewById(R.id.facil_button);
-		Button button2 = (Button) findViewById(R.id.moderado_button);
-		Button button3 = (Button) findViewById(R.id.dificil_button);
-		Button button4 = (Button) findViewById(R.id.back_button1);
-		
-		
-		button1.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(),FacilGameActivity.class);
-				startActivity(intent);
-			}
-			
-		});
-		button4.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				finish();
-			}
-			
-		});
-		
-		
 	}
-	
-	
-
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -69,7 +59,7 @@ public class NwGameDisplayActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.nw_game_display, menu);
+		getMenuInflater().inflate(R.menu.facil_game, menu);
 		return true;
 	}
 

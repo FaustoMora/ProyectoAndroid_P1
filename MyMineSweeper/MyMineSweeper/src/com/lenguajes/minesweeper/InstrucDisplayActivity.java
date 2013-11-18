@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
@@ -18,10 +21,21 @@ public class InstrucDisplayActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-	
 		setContentView(R.layout.activity_instruc_display);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		Button button = (Button)findViewById(R.id.button_instruc);
+		
+		button.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+			
+		});
 	}
 
 	/**

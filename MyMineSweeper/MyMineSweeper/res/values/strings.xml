@@ -8,13 +8,11 @@
     <color name="blanco">#ffffff</color>
     <color name="marron">#61210B</color>
 
-	<string name="instrucciones"><b>
-El juego consiste en despejar todas las casillas de una pantalla que no oculten una mina.
+    <string name="instrucciones"><b>El juego consiste en despejar todas las casillas de una pantalla que no oculten una mina.
 Algunas casillas tienen un número, este número indica las minas que suman todas las casillas circundantes. 
 Si se descubre una casilla sin número indica que ninguna de las casillas vecinas tiene mina y estas se descubren automáticamente.
 Si se descubre una casilla con una mina se pierde la partida. 
-Se puede poner una marca en las casillas que el jugador piensa que hay minas para ayudar a descubrir la que están cerca.</b>
-</string>    
+Se puede poner una marca en las casillas que el jugador piensa que hay minas para ayudar a descubrir la que están cerca.</b></string>
     <string name="facil_button">Nivel Principiante</string>
     <string name="moderado_button">Nivel Experimentado</string>
     <string name="dificil_button">Nivel Experto</string>
@@ -29,5 +27,6 @@ Se puede poner una marca en las casillas que el jugador piensa que hay minas par
     <string name="title_activity_nw_game_display">Juego Nuevo</string>
     <string name="title_activity_instruc_display">Instrucciones</string>
     <string name="title_activity_ranking_display">Ranking</string>
+    <string name="title_activity_facil_game">FacilGameActivity</string>
 
 </resources>

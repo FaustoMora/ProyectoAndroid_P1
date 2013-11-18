@@ -46,6 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.lenguajes.minesweeper.MainActivity" />
         </activity>
+        <activity
+            android:name="com.lenguajes.minesweeper.FacilGameActivity"
+            android:label="@string/title_activity_facil_game"
+            android:parentActivityName="com.lenguajes.minesweeper.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lenguajes.minesweeper.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -14,7 +18,37 @@ public class RankingDisplayActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ranking_display);
-		// Show the Up button in the action bar.
+		
+		/*ImageButton matriz[] = new ImageButton[4];
+		TableRow row = new TableRow(this);
+		
+		for(int i=0;i<4;i++){
+			matriz[i]= new ImageButton(this);
+			matriz[i].setVisibility(0);
+			matriz[i].setBackgroundResource(R.drawable.square);
+			row.addView(matriz[i]);
+		}
+		
+
+		row.setVisibility(0);
+		setContentView(row);*/
+		
+		/*TableLayout table = new TableLayout(this);
+		
+		FrameLayout tableroCeldas[][] = new FrameLayout[8][8];
+		TableRow row = new TableRow(this);
+		
+		for(int fila=0;fila<8;fila++){
+			for(int colum=0;colum<8;colum++){
+				tableroCeldas[fila][colum].setBackgroundResource(R.drawable.square);
+				row.addView(tableroCeldas[fila][colum]);
+			}
+		}
+		
+		table.addView(row);
+		setContentView(table);*/
+		
+		
 		setupActionBar();
 	}
 
