@@ -1,8 +1,0 @@
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/tablero_facil"
-    tools:context=".FacilGameActivity"
-    android:background="@drawable/buscaminas">
-    
-</TableLayout>
