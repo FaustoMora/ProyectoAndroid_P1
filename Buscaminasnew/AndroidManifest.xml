@@ -27,7 +27,9 @@
         <activity 
             android:name="com.android.buscaminas.Niveles"
             android:label="@string/LevelSelector"
+            
             android:screenOrientation="portrait">
+           
             
         </activity>
         
@@ -84,6 +86,13 @@
             android:name="Desarrolladores"
             android:label="Desarrolladores" 
             android:screenOrientation="landscape">
+            
+        </activity>
+        
+         <activity 
+            android:name="IngresoNombre"
+            android:label="IngresoNombre" 
+            android:screenOrientation="portrait">
             
         </activity>
         

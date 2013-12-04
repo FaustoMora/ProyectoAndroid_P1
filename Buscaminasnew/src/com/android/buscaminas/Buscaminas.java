@@ -11,32 +11,24 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint({ "DrawAllocation", "NewApi" })
 public class Buscaminas extends Activity implements OnTouchListener {
 	private Tablero fondo;
-	Button boton_reinicio;
+	int x, y;
 	private Celda[][] casillas;
 	private boolean activo = true;
 	private final int filas=8;
 	private final int col=8;
-	boolean firstEvent=false;
-	int cantidadBomba = 40;
-	int condicionganar;
-	TextView cronometro;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,37 +37,20 @@ public class Buscaminas extends Activity implements OnTouchListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.buscaminas);
-		
 
-		LinearLayout layout2 = (LinearLayout) findViewById(R.id.layout2);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.layout2);
 		fondo = new Tablero(this);
 		fondo.setOnTouchListener(this);
 
-		//creacion de los botones del panel superior
-		//estos id no estan implementados en el xml por problemas con el frame
-		this.boton_reinicio = (Button) findViewById(R.id.boton_reinicio);
-		this.cronometro = (TextView)findViewById(R.id.cronometro);
-		
-		
-		boton_reinicio.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				reiniciarActividad(Buscaminas.this);
-				
-			}
-		});
-
-
-		layout2.addView(fondo);
+		layout.addView(fondo);
 		casillas = new Celda[filas][filas];
 		for (int f = 0; f <filas; f++) {
 			for (int c = 0; c < filas; c++) {
 				casillas[f][c] = new Celda();
 			}
 		}
-
+		this.disponerBombas();
+		this.contarBombasPerimetro();
 	}
 
 	@Override
@@ -85,35 +60,36 @@ public class Buscaminas extends Activity implements OnTouchListener {
 		return true;
 	}
 
+	public void presionado(View v) {
+		casillas = new Celda[filas][filas];
+		for (int f = 0; f < filas; f++) {
+			for (int c = 0; c < filas; c++) {
+				casillas[f][c] = new Celda();
+			}
+		}
+		this.disponerBombas();
+		this.contarBombasPerimetro();
+		activo = true;
+
+		fondo.invalidate();
+	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (activo)
 			for (int f = 0; f < filas; f++) {
 				for (int c = 0; c < filas; c++) {
-
-					//comprobacion de la casilla hacia si misma
 					if (casillas[f][c].dentro((int) event.getX(),
 							(int) event.getY())) {
-						
-					//validamos el primer click evento
-					if(!this.firstEvent){
-						this.firstEvent=true;
-						this.disponerBombas(f,c); //<-- funcion update
-						this.contarBombasPerimetro();
-						}
-						//destapamos de todas formas
 						casillas[f][c].destapado = true;
 						if (casillas[f][c].contenido == 80) {
 							Toast.makeText(this, "Booooooooommmmmmmmmmmm",
 									Toast.LENGTH_LONG).show();
-							//desactivamos el perder partida para pruebas
-							//activo = false;
-						}
-						if (casillas[f][c].contenido == 0){
+							Intent save = new Intent(this,IngresoNombre.class);
+							startActivity(save);
+							activo = false;
+						} else if (casillas[f][c].contenido == 0)
 							recorrer(f, c);
-						}
-						//para que no de mas de un click a la vez
 						fondo.invalidate();
 					}
 				}
@@ -124,17 +100,6 @@ public class Buscaminas extends Activity implements OnTouchListener {
 		}
 
 		return true;
-	}
-
-
-	//funcion del boton reinicio
-	public static void reiniciarActividad(Activity actividad){
-			Intent intent=new Intent();
-	        intent.setClass(actividad, actividad.getClass());
-	        //llamamos a la actividad
-	        actividad.startActivity(intent);
-	        //finalizamos la actividad actual
-	        actividad.finish();
 	}
 
 	class Tablero extends View {
@@ -196,9 +161,9 @@ public class Buscaminas extends Activity implements OnTouchListener {
 					if (casillas[f][c].contenido == 80
 							&& casillas[f][c].destapado) {
 						Paint bomba = new Paint();
-						bomba.setARGB(255, 255, 0, 0);
+						/*bomba.setARGB(255, 255, 0, 0);
 						canvas.drawCircle(c * anchocua + (anchocua / 2),
-								filaact + (anchocua / 2), filas, bomba);
+								filaact + (anchocua / 2), filas, bomba);*/
 						Picture p = new Picture();
 						canvas.drawPicture(new Picture());
 					}
@@ -209,33 +174,25 @@ public class Buscaminas extends Activity implements OnTouchListener {
 		}
 	}
 
-
-	//disponer bombas actualizado para el primer click
-	private void disponerBombas(int fil , int co) {
-
+	private void disponerBombas() {
+		int cantidad = 8;
 		do {
 			int fila = (int) (Math.random() * filas);
 			int columna = (int) (Math.random() * filas);
-			//le agrego posicion actual para primer click
-			if(fila!= fil || columna !=co){
-				if (casillas[fila][columna].contenido == 0) {
-					//80 significa que tiene bomba
-					casillas[fila][columna].contenido = 80;
-					cantidadBomba--;
-				}
-
+			if (casillas[fila][columna].contenido == 0) {
+				casillas[fila][columna].contenido = 80;
+				cantidad--;
 			}
-		} while (cantidadBomba != 0);
-
+		} while (cantidad != 0);
 	}
 
 	private boolean gano() {
-
+		int cant = 0;
 		for (int f = 0; f < filas; f++)
 			for (int c = 0; c < filas; c++)
 				if (casillas[f][c].destapado)
-					condicionganar++;
-		if (condicionganar == 56)
+					cant++;
+		if (cant == 56)
 			return true;
 		else
 			return false;
@@ -295,7 +252,6 @@ public class Buscaminas extends Activity implements OnTouchListener {
 		if (fil >= 0 && fil < filas && col >= 0 && col < filas) {
 			if (casillas[fil][col].contenido == 0) {
 				casillas[fil][col].destapado = true;
-				//significa que ia estan visitadas
 				casillas[fil][col].contenido = 50;
 				recorrer(fil, col + 1);
 				recorrer(fil, col - 1);
@@ -305,7 +261,6 @@ public class Buscaminas extends Activity implements OnTouchListener {
 				recorrer(fil - 1, col + 1);
 				recorrer(fil + 1, col + 1);
 				recorrer(fil + 1, col - 1);
-				//si tienen numeros solo los destapa
 			} else if (casillas[fil][col].contenido >= 1
 					&& casillas[fil][col].contenido <= filas) {
 				casillas[fil][col].destapado = true;

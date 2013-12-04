@@ -42,8 +42,9 @@ public final class R {
         public static final int buscaminas=0x7f030001;
         public static final int developers=0x7f030002;
         public static final int help=0x7f030003;
-        public static final int ranking=0x7f030004;
-        public static final int selectorniveles=0x7f030005;
+        public static final int ingresoname=0x7f030004;
+        public static final int ranking=0x7f030005;
+        public static final int selectorniveles=0x7f030006;
     }
     public static final class menu {
         public static final int principal=0x7f070000;
