@@ -2,8 +2,11 @@ package com.android.buscaminas;
 
 public class Celda {
     public int x,y,ancho;
-    public int contenido=0;
+    public int contenido=0; //si tiene bomba o carga
     public boolean destapado=false;
+    boolean banderaCelda=false;
+    
+    
     public void fijarxy(int x,int y, int ancho) {
         this.x=x;
         this.y=y;
