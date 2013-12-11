@@ -24,6 +24,9 @@ public class Principal extends Activity implements android.view.View.OnClickList
 		View developers = findViewById(R.id.infoMakersButton);
 		developers.setOnClickListener(this);
 		
+		View abandonar= findViewById(R.id.salir);
+		abandonar.setOnClickListener(this);
+		
 	}
 	
 	
@@ -57,6 +60,11 @@ public class Principal extends Activity implements android.view.View.OnClickList
 	if(vista.getId()==findViewById(R.id.infoMakersButton).getId()){
 		Intent desarrolladores = new Intent(this,Desarrolladores.class);
 		startActivity(desarrolladores);
+		
+		}
+	if(vista.getId()==findViewById(R.id.salir).getId()){
+		//Intent salir = new Intent(this,Desarrolladores.class);
+		finish();
 		
 		}
 	}
