@@ -10,18 +10,62 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1"
-        android:orientation="vertical" >
+        android:layout_below="@+id/button_reinicio"
+        android:orientation="horizontal"
+        
+        android:gravity="center_horizontal"
+        >
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_reinicio"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/caritas" />
+
+
+    <TextView
+        android:id="@+id/cronometroText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:onClick="presionado"
-        android:text="Reiniciar" />
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/button_reinicio"
+        android:gravity="center"
+        android:text="0:00"
+        android:textSize="36dp" />
+
+    <TextView
+        android:id="@+id/banderatext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/button_reinicio"
+        android:gravity="center"
+        android:text="00"
+        android:textSize="36dp" />
+
+    <ToggleButton
+        android:id="@+id/button_banderaOn"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/banderatext"
+        android:layout_alignTop="@+id/button_reinicio"
+        android:layout_toLeftOf="@+id/banderatext"
+         />
+
+    <ToggleButton
+        android:id="@+id/button_banderaOff"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/banderatext"
+        android:layout_alignTop="@+id/button_banderaOn"
+        android:layout_toLeftOf="@+id/button_banderaOn"
+         />
 
 </RelativeLayout>

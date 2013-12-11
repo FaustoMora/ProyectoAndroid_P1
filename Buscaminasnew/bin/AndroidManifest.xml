@@ -85,13 +85,19 @@
         <activity 
             android:name="Desarrolladores"
             android:label="Desarrolladores" 
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             
         </activity>
         
          <activity 
             android:name="IngresoNombre"
             android:label="IngresoNombre" 
+            android:screenOrientation="portrait">
+            
+        </activity>
+        <activity 
+            android:name="Personalizado"
+            android:label="Personalizado" 
             android:screenOrientation="portrait">
             
         </activity>
