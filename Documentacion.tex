@@ -7,7 +7,7 @@
 \documentclass[11pt]{article} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
-
+%\usepackage{babel}
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
 % See the LaTeX Companion or other references for full information.
@@ -26,7 +26,7 @@
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
-%\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{setspace} %paquete para interlineado
@@ -52,9 +52,6 @@
 
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-\usepackage{color}
-\usepackage{listings}
-
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
@@ -64,35 +61,11 @@
 \usepackage[spanish]{babel}
 \usepackage{listings} 
 %%% The "real" document content comes below...
-\lstset{language=html,caption={Ejemplos Basicos: Hola Mundo y otros programas introductorios},label=DescriptiveLabel}
 
-   
-\lstdefinestyle{customc}{
-  belowcaptionskip=1\baselineskip,
-  breaklines=true,
-  frame=L,
-  xleftmargin=\parindent,
-  language=C,
-  showstringspaces=false,
-  basicstyle=\footnotesize\ttfamily,
- keywordstyle=\bfseries\color{green!40!black},
-  commentstyle=\itshape\color{purple!40!black},
-  identifierstyle=\color{blue},
- stringstyle=\color{red},
-}
-
-
-\lstset{escapechar=@,style=customc}
-
-
-
-
-
-\title{Bucamina - Android}
-
-
-
-\author{Fausto Mora, Christian Vergara, \\ Angel Gonzalez}
+\title{Proyecto de Lenguajes de Programaci\'on \\ Primer Parcial}
+\author{\\Fausto Mora \\Christian Vergara \\ Angel Gonz\'alez}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
 \begin{document}
 
 
@@ -100,14 +73,63 @@
          % otherwise the current date is printed 
 
 \maketitle
-%\tableofcontents % No hace falta un TOC en un artículo corto
+
+\newpage
+\thispagestyle{empty}
+\tableofcontents
+
+\newpage
+\thispagestyle{empty}
+
 
 \section{Introducción}
-\newcommand{\oops}[1]{\textit{#1}}
 
-\section{Obejetivo del Proyecto}
-\section{Objetivo Especificos}
-\section{Descripcion}
+\section{Descripci\'on del Proyecto}
+\subsection{Prop\'osito}
+Al finalizar el proyecto, los responsables del mismo presentaremos una aplicaci\'on para dispositivos m\'oviles para la plataforma Android; desarrollado haciendo uso del entorno de desarrollo Eclipse, y de herramientas de software y dispositivos en donde pueda ser emulado y ejecutado, a fin de adquirir conocimientos en dicho lenguaje de programaci\'on y las herramientas involucradas, para fortalecer nuestras competencias en el "Desarrollo de proyectos con diferentes lenguajes de programaci\'on representando diferentes paradigmas de lenguajes."
+\subsection{Producto}
+La aplicaci\'on desarrollada corresponde al juego \textsl{Buscaminas} del sistema Windows. El juego será ejecutable en distintos dispositivos que soporten el sistema Andorid, teniendo preferencia en los dispositivos m\'oviles de pantalla grande ( para un mejor uso de la aplicaci\'on).
+\\El producto ser\'a desarrollado en el entorno Eclipse disponiendo del SDK para Android. El juego ser\'a emulado en el software haciendo uso del software Genymotion y podr\'a ser ejecutado en dispositivos Android con un API desde la versi\'on 2.1 (Dependiendo de la disponibilidad de componentes presentes en dicho API y que sean usados en nuestro proyecto), hasta las versiones de Andorid m\'as recientes.
+\subsection{Objetivos}
+Para lograr cumplir nuestro prop\'osito planteamos los siguientes objetivos.
+\subsubsection{Objetivos Generales}
+\begin{itemize}
+\item Desarrollar una Aplicaci\'on para el sistema Android.
+\item Conocer la sintaxis y sem\'antica del lenguaje de programaci\'on de la platarforma Android.
+\item Desarrollar competencias en la utilizaci\'on de diferentes paradigmas de los lenguajes de programaci\'on.
+\end{itemize}
+\subsubsection{Objetivos Espec\'ificos}
+\begin{itemize}
+\item Implementar el juego Buscaminas del sistema Windows respetando todas sus funcionalidades.
+\item Hacer uso de herramientas que nos permitan desarrollar aplicaciones para dispositivos m\'oviles.
+\item Utilizar las caracter\'isticas del lenguaje de programac\'on Android de manera eficiente y \'optima.
+\end{itemize}
+\subsection{Alcance}
+\subsubsection{Caracter\' isticas implementadas}
+El \'area para la que esta desarrollado nuestro proyecto es la de dispositivos m\'oviles.
+La aplicaci\'on desarrollada posee caracter\'isticas muy similares al juego Buscaminas de Windows y a continuaci\'on se mencionan las caracter\'isticas implementadas en en plazo de realizaci\'on del proyecto.
+La aplicaci\'on consta de una pantalla principal  donde se presenta al usuario las siguientes opciones: Iniciar Juego, Instrucciones, Ranking, Desarrolladores y Salir. Cada opci\'on presentada en la pantalla principal desencadena una actividad diferente al ser seleccionada.
+Para Iniciar el juego hay que escoger entre las tres dificultades disponibles o la opci\'on Personalizado. Las tres dificultades implementadas son: Principiante, Normal, Experto. En la primera se presenta un tablero de juego de 8 x 8 celdas donde se hallan escondidas 10 minas. En la segunda se presenta un tablero de juego de 16 x 16 celdas donde se hallan escondidas 40 minas. En la tercera se presenta un tablero de juego de 16 x 30 celdas donde se hallan escondidas 99 minas. La opci\'on de juego personalizado le permite al usuario determinar las dimensiones del tablero (n\'umero de celdas por columna y por fila) asi como el n\'umero de minas escondidas en el tablero.
+Se implemento la manera de asignar minas en el tablero una vez que se haya dado el primer clic en una de las casillas. Esto se realizo\' o con el fin de evitar que el usuario pierda una partida con el primer clic.
+En la pantalla de juego se incluye un reloj que muestra segundo a segundo el tiempo que transcurre durante el juego. Este reloj inicia su marcha desde el primer clic.
+Tambi\'en 
+\subsubsection{Caracter\' isticas no implementadas}
+
+\subsection{Entregables}
+El proyecto incluye la entrega de lo siguiente:
+
+\begin{itemize}
+\item El link del repositorio GIT donde se encuentra el c\'odigo fuente.
+\item Documentación en LaTeX ( incluidos el PDF y el c\'odigo fuente). Estos documentos y todos los recursos que se necesiten para la ejecuci\'on del c\'odigo fuente deber estar dentro de una carpeta llamada \textsl{doc}.
+\item  El proyecto ser\'a presentado en un dispositivo m\'ovil corriendo con todas sus funcionalidades.
+\end{itemize}
+
+\subsection{Restricciones}
+La principal limitaci\'on de nuestro proyecto se debe al tama\~no de la pantalla del dispositivo en donde se ejecute.
+Esto se debe al dise\~no del tablero del juego. Al estar compuesto de celdas y al ser una aplicaci\'on t\'actil se dificulta la jugabilidad en dispositivos de pantalla peque\~na.
+Es por esta raz\'on que es preferible ejecutar la aplicaci\'on en dispositivos de pantalla grande.
+
+
 \section{Diagramas de casos de uso }
 
 \begin{center}
