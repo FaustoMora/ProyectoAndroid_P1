@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:background="#380ebd"
+        android:contentDescription="@string/app_name"
+        android:fontFamily="sans-serif"
+        android:scaleType="center"
+        android:text="Elije tu Dificultad"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp" />
+
+    <EditText
+        android:id="@+id/rows"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Filas"
+        android:textColor="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/colums"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/rows"
+        android:layout_alignBottom="@+id/rows"
+        android:layout_marginLeft="23dp"
+        android:layout_toRightOf="@+id/rows"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Columnas"
+        android:textColor="@android:color/darker_gray" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/mines"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rows"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Minas"
+        android:textColor="@android:color/darker_gray" />
+
+</RelativeLayout>

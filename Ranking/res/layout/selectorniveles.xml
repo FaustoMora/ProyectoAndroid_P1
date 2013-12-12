@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/portada">
+
+    <Button
+        android:id="@+id/beginnerButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/normalButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/botton"
+        android:text="Principiante" />
+
+    <Button
+        android:id="@+id/advancedButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/normalButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="99dp"
+        android:background="@drawable/botton"
+        android:text="Experto" />
+
+    <Button
+        android:id="@+id/normalButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/advancedButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/botton"
+        android:text="Normal" />
+
+    <Button
+        android:id="@+id/customButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/advancedButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/botton"
+        android:text="Personalizado" />
+    
+</RelativeLayout>
