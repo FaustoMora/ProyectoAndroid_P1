@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ganador" >
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ingresoGamer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/ingresoGamer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:text="Ingreso"
+        android:background="@drawable/button" />
+
+    <Button
+        android:id="@+id/checkRanking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText1"
+        android:layout_alignTop="@+id/ingresoGamer"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="72dp"
+        android:text="Consultar Ranking"
+        android:background="@drawable/button" />
+
+    <TextView
+        android:id="@+id/tiempoObtenido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="18dp"
+        android:editable="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28dp" />
+
+</RelativeLayout>
