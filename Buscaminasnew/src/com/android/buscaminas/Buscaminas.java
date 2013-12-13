@@ -1,37 +1,64 @@
 package com.android.buscaminas;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Picture;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.text.format.Formatter;
 import android.text.format.Time;
+import android.util.Log;
+import android.view.Display;
+import android.view.DragEvent;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.DragShadowBuilder;
 import android.view.View.OnClickListener;
+import android.view.View.OnDragListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-@SuppressLint({ "DrawAllocation", "NewApi" })
-public class Buscaminas extends Activity implements OnTouchListener{
+@SuppressLint({ "DrawAllocation", "NewApi", "ValidFragment" })
+public class Buscaminas extends FragmentActivity implements OnTouchListener{
 Button boton_reinicio;
-ToggleButton banderaOn;
-ToggleButton banderaOff;
+Button banderaOn;
 	
 	private Tablero tableroCeldas;
 	private Celda[][] celdas;
@@ -42,11 +69,9 @@ ToggleButton banderaOff;
 	long startTime=0;
 	boolean firstEvent=false;
 	private int minas=0;
-    int condicionganar = (filas*cols)-minas;
     TextView cronometroText;
     TextView banderaText;
     boolean banderaon=false;
-    boolean banderaoff=false;
     int cantBandera=0; //la bandera debe estar al doble es decir ahora pone 10
 	private LinearLayout panel;
 	Handler timerHandler = new Handler();
@@ -65,6 +90,18 @@ ToggleButton banderaOff;
 		}
     	
     };
+    
+    Thread thread = new Thread(){
+        @Override
+       public void run() {
+            try {
+               Thread.sleep(3500); 
+               Buscaminas.this.finish();
+           } catch (Exception e) {
+               
+           }
+        }  
+      };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +117,15 @@ ToggleButton banderaOff;
 		if(info.getInt("choice")==i){filas=8;cols=8;minas=10;this.cantBandera=minas;this.id=1;} //Se escoje el nivel FACIL
 		if(info.getInt("choice")==j){filas=16;cols=16;minas=40;this.cantBandera=minas;this.id=2;} // Se escoje el nivel NORMAL
 		if(info.getInt("choice")==k){filas=16;cols=30;minas=99;this.cantBandera=minas;this.id=3;} // Se escoje el nivel AVANZADO O EXPERTO
-		
+		if(info.getInt("choice")==l){
+			if(info.getInt("filas")>8||info.getInt("filas")<16)
+			filas=info.getInt("filas");else filas=16;
+			if(info.getInt("colums")>8||info.getInt("colums")<30)
+			cols=info.getInt("colums");else cols=16;
+			if(info.getInt("minas")>1 && info.getInt("minas")<info.getInt("filas")*info.getInt("colums"))
+			minas=info.getInt("minas");else minas=(info.getInt("filas")*info.getInt("colums")-1);
+			this.cantBandera=minas;this.id=4;
+			} // Se escoje el nivel AVANZADO O EXPERTO
 		
 		
 		panel = (LinearLayout) findViewById(R.id.layout2);
@@ -88,8 +133,8 @@ ToggleButton banderaOff;
 		tableroCeldas.setOnTouchListener(this);
 		
                 this.boton_reinicio = (Button) findViewById(R.id.button_reinicio);
-                this.banderaOn = (ToggleButton)findViewById(R.id.button_banderaOn);
-                this.banderaOff = (ToggleButton)findViewById(R.id.button_banderaOff);
+                this.banderaOn = (Button)findViewById(R.id.button_banderaOn);
+
                 
                 
                 this.cronometroText = (TextView)findViewById(R.id.cronometroText);
@@ -108,31 +153,83 @@ ToggleButton banderaOff;
                 });
                 
                
-                this.banderaOn.setOnClickListener(new OnClickListener() {
+                this.banderaOn.setOnLongClickListener(new OnLongClickListener() {
 					
 					@Override
-					public void onClick(View v) {
+					public boolean onLongClick(View v) {
 						// TODO Auto-generated method stub
-						banderaOn.setSelectAllOnFocus(true);
-						Buscaminas.this.banderaon=true;
-						Buscaminas.this.banderaoff=false;
-						banderaOff.setSelected(false);
+						banderaOn.setBackgroundResource(R.drawable.mememe);
+						return true;
+					}
+				});
+                
+                
+                this.banderaOn.setOnTouchListener(new OnTouchListener() {
+					
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						// TODO Auto-generated method stub
+						if(event.getAction()==MotionEvent.ACTION_DOWN){
+							ClipData data = ClipData.newPlainText("", "");
+							DragShadowBuilder shadowBuilder = new DragShadowBuilder(v);
+							v.startDrag(data, shadowBuilder, v, 0);
+							return true;
+						}
+						return false;
+					}
+				});
+                
+                this.banderaOn.setOnDragListener(new OnDragListener() {
+                	
+                	
+                	
+                	Drawable enterShape = getResources().getDrawable(R.drawable.mememe);
+                    Drawable normalShape = getResources().getDrawable(R.drawable.mineicon2);
+                	
+					@SuppressWarnings("deprecation")
+					@Override
+					public boolean onDrag(View v, DragEvent event) {
+						// TODO Auto-generated method stub	
+											
 						
+						switch(event.getAction()){
+						case DragEvent.ACTION_DRAG_STARTED:
+						    // do nothing
+							v.setBackgroundDrawable(enterShape);
+						      break;
+						    case DragEvent.ACTION_DRAG_ENTERED:
+						    	v.setBackgroundDrawable(enterShape);
+
+						      break;
+						    case DragEvent.ACTION_DRAG_EXITED:        
+						    	v.setBackgroundDrawable(normalShape);
+						      break;
+						    case DragEvent.ACTION_DROP:
+						      // Dropped, reassign View to ViewGroup
+						    	v.setBackgroundDrawable(enterShape);
+						      break;
+						    case DragEvent.ACTION_DRAG_ENDED:
+						    	v.setBackgroundDrawable(normalShape);
+						    	break;
+						    case DragEvent.ACTION_DRAG_LOCATION:
+						    	 for(int f=0;f<Buscaminas.this.filas;f++){
+							    		for(int c=0;c<Buscaminas.this.cols;c++){
+							    			if(celdas[f][c].limites((int)event.getX(), (int)event.getY())){	
+							    				//Toast.makeText(Buscaminas.this, String.valueOf("X: "+event.getX()+"-"+event.getY()),Toast.LENGTH_LONG).show();
+									    		if(!celdas[f][c].descubierto && !celdas[f][c].banderaCelda){
+									    			celdas[f][c].banderaCelda=true;
+									    		}
+							    			}
+									    		
+							    		}
+							    	}
+						    	 return true;
+						      default:
+						   break;
+						}
+						return false;
 					}
 				});
-                
-                this.banderaOff.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						banderaOff.setSelected(false);
-						Buscaminas.this.banderaon=true;
-						Buscaminas.this.banderaoff=false;
-						banderaOn.setSelected(false);
-					}
-				});
-                
                 
 
 		panel.addView(tableroCeldas);
@@ -142,6 +239,7 @@ ToggleButton banderaOff;
 				celdas[f][c] = new Celda();
 			}
 		}
+
 	}
 
 	@Override
@@ -154,95 +252,96 @@ ToggleButton banderaOff;
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		if (activo)
+		if (activo){
 			
-			for (int f = 0; f < filas; f++) {
-				for (int c = 0; c < cols; c++) {
-                //comprobacion de la casilla hacia si misma
-					if (celdas[f][c].limites((int) event.getX(),
-							(int) event.getY())) {
-                                    //if para poner bandera
-                                        if(this.banderaon){
-                                                        if(this.cantBandera<minas && !this.celdas[f][c].descubierto){
-                                                                this.colocarBanderaCelda(f,c);
-                                                                this.updateBandera(true);                                                             
-                                                        }
-                                        }
-                                        if(this.banderaoff){
+	        // do your tasks here
+	    	switch(event.getAction()){
+			case (MotionEvent.ACTION_DOWN):
+				this.boton_reinicio.setBackgroundResource(R.drawable.sorpresa);
+				this.banderaOn.setBackgroundResource(R.drawable.mineicon);
+		        break; 
+		        
+			case(MotionEvent.ACTION_UP):
+				this.boton_reinicio.setBackgroundResource(R.drawable.sonrisa);	
+				this.banderaOn.setBackgroundResource(R.drawable.mineicon2);
+				break;
+			default:
 
-                                                if(this.celdas[f][c].banderaCelda && !this.celdas[f][c].descubierto){
-                                                        this.removBanderaCelda(f, c);
-                                                        this.updateBandera(false);
-                                                }
-                                        }else{
-                                        if(!this.banderaon && !this.banderaoff){
-                                        //validamos el primer click evento
-                                        if(!this.firstEvent){
-                                                this.firstEvent=true;
-                                                startTime = System.currentTimeMillis();
-                                    			timerHandler.postDelayed(timerRunnable,	500);
-                                                this.setMinas(f,c);
-                                                this.setNumMinas();
-                                                }
-
-                                        
-                                        //destapamos de todas formas
-                                        if(!this.celdas[f][c].banderaCelda){
-                                                celdas[f][c].descubierto = true;
-                                                
-                                                if (celdas[f][c].content == 80) {
-                                                	boton_reinicio.setBackgroundResource(R.drawable.muerto);
-                                                		timerHandler.removeCallbacks(timerRunnable);
-                                                        Toast.makeText(this, "Booooooooommmmmmmmmmmm",
-                                                                        Toast.LENGTH_LONG).show();
-                                                        //activo = false;
-                                                }
-                                                
-                                                if (celdas[f][c].content == 0){
-                                                        checkAround(f, c);
-                                                }
-                                                
-                                        }
-                                        }
-
-                                        } //end bool bandera
-                                        tableroCeldas.invalidate();
-                                        
-                                        }
-
-                                }//for col
-                        }// for fil
-			tableroCeldas.invalidate();
+				break;
+	    	}
 			
-            /*try{
-            Thread.sleep(2000);
-            }catch(Exception e){}
-            */
-                
-                if (checkWin()) {
-                        //aqui deberia ir la de forma para almacenar el ranking
-                        activo = false;
-                }
+		
+		for (int f = 0; f < filas; f++) {
+			for (int c = 0; c < cols; c++) {
+            //comprobacion de la casilla hacia si misma
+				if (celdas[f][c].limites((int) event.getX(),
+						(int) event.getY())) {
+                                //if para poner bandera
+                                    //validamos el primer click evento
+                                    if(!this.firstEvent){
+                                            this.firstEvent=true;
+                                            startTime = System.currentTimeMillis();
+                                			timerHandler.postDelayed(timerRunnable,	500);
+                                            this.setMinas(f,c);
+                                            this.setNumMinas();
+                                            }
+                                    //destapamos de todas formas
+                                    if(!this.celdas[f][c].banderaCelda){
+                                            celdas[f][c].descubierto = true;
+                                            
+                                            if (celdas[f][c].content == 80) {                                                	
+                                            		timerHandler.removeCallbacks(timerRunnable);
+                                            		boton_reinicio.setBackgroundResource(R.drawable.muerto);
+                                            		this.banderaOn.setBackgroundResource(R.drawable.bombboy);
+                                                   
+                                            		LayoutInflater inflater = getLayoutInflater();
+                                            		View view = inflater.inflate(R.layout.cust_toast_layout, (ViewGroup)findViewById(R.id.custom_toast));
+                                            		Toast toast = new Toast(this);
+                                            		toast.setView(view);
+                                            		toast.setDuration(Toast.LENGTH_LONG);
+                                            		toast.show();
+                                                    tableroCeldas.invalidate();
+                                                    Buscaminas.this.activo = false;
+                                                    thread.start();
+                                            }
+                                            
+                                            if (celdas[f][c].content == 0){
+                                                    checkAround(f, c);
+                                            }                                                
+                                    }
+                                    } //end bool bandera
+                                    tableroCeldas.invalidate();
 
-                
-                return true;
-        }
+                            }//for col
+                    }// for fil
+		tableroCeldas.invalidate();
+		
+            
+            if (checkWin()) {
+            	Toast.makeText(this, "Ganaste", Toast.LENGTH_SHORT);
+            	Buscaminas.this.tableroCeldas.invalidate();
+            	this.banderaOn.setBackgroundResource(R.drawable.winboy);
+            	this.boton_reinicio.setBackgroundResource(R.drawable.winface);
+                    //aqui deberia ir la de forma para almacenar el ranking
+            }
+    
+	    }
+
+		return activo;
+	}
+			
+			
         //funcion que chequea si gana
         private boolean checkWin() {
-                
-                int acum=0;
-                for(int fil=0;fil<this.filas;fil++){
-                        for(int col=0;col<this.filas;col++){
-                                if(this.celdas[fil][col].content!=80 && this.celdas[fil][col].descubierto){
-                                        acum++;
-                                }
-                        }
-                }
-                if(acum-this.condicionganar==0){
-                        return true;
-                }else{
-                        return false;
-                }
+                int uncovered=0;
+                		for(int fil=0;fil<Buscaminas.this.filas;fil++){
+                			for(int col=0;col<Buscaminas.this.cols;col++){
+                				if(celdas[fil][col].descubierto && celdas[fil][col].content!=80){
+                					uncovered++;
+                				}
+                			}
+                		}
+                return (uncovered ==((filas*cols)-minas));
         }
 
         public void reiniciarActividad(Activity actividad, int id){
@@ -271,7 +370,18 @@ ToggleButton banderaOff;
 		}
 
 		protected void onDraw(Canvas canvas) {
-			canvas.drawRGB(0, 0, 0);
+			
+			Resources res = getResources();
+			Bitmap bitmap =BitmapFactory.decodeResource(res, R.drawable.ziggs);
+			
+			Display display = getWindowManager().getDefaultDisplay();
+			Point Size = new Point();
+			display.getSize(Size);
+			int width = Size.x;
+			int height = Size.y;
+			
+			canvas.drawBitmap(bitmap, null, new Rect(0,0,width,height),null);
+			
 			int size = 0;
 			if (canvas.getWidth() < canvas.getHeight())
 				size = tableroCeldas.getWidth();
@@ -286,43 +396,56 @@ ToggleButton banderaOff;
 			else {
 				paint2.setTextSize(10);
 				tolerancia=10;}
-			//paint2.setTypeface(Typeface.DEFAULT_BOLD);
-			paint2.setARGB(255, 0, 0, 255);
-			Paint paintlinea1 = new Paint();
-			//paintlinea1.setARGB(0, 255, 255, 255);
-		
+			paint2.setTypeface(Typeface.DEFAULT_BOLD);
+			
+			
 			int filaact = 0;
 			for (int f = 0; f < filas; f++) {
 				for (int c = 0; c < cols; c++) {
 					celdas[f][c].fijarxy(c * sizecell, filaact, sizecell);
-					if (celdas[f][c].descubierto == false){
+					if (celdas[f][c].descubierto==false){
 						//Visible
-						paint.setARGB(255,230,230,250 ); //100,245,245,220
-					}else 						//BackGround
+						paint.setARGB(255,102,102,102); 
 						
-						//this.findViewById(R.id.button1);
-						//Background square
+						if(celdas[f][c].banderaCelda){
+							Resources resource2 = getResources();
+							Bitmap bandera =BitmapFactory.decodeResource(resource2,R.drawable.bandera);
+							
+							canvas.drawBitmap(bandera, null, new Rect(c * sizecell,filaact,c * sizecell
+									+ sizecell - 2,filaact + sizecell - 2),null);
+
+						}
 						
-						paint.setARGB(255,245,222,179); //200,227,168,87
-					canvas.drawRect(c * sizecell, filaact, c * sizecell
+					}else 						
+					
+						paint.setARGB(255,216,216,216); 
+						canvas.drawRect(c * sizecell, filaact, c * sizecell
 							+ sizecell - 2, filaact + sizecell - 2, paint);
+						
+					if(celdas[f][c].banderaCelda && !celdas[f][c].descubierto){
+						paint.setARGB(255,245,222,0); 
+						canvas.drawRect(c * sizecell, filaact, c * sizecell
+							+ sizecell - 2, filaact + sizecell - 2, paint);
+					}	
 					
 					if (celdas[f][c].content >= 1
 							&& celdas[f][c].content <= filas
 							&& celdas[f][c].descubierto){
 						
-						canvas.drawText(String.valueOf(celdas[f][c].content), c	* sizecell + (sizecell / 2) - filas + tolerancia,filaact + sizecell / 2, paint2);//}
+						
+						paint2.setARGB(255, (int)(Math.random()*200), (int)(Math.random()*150), (int)(Math.random()*150));
+						canvas.drawText(String.valueOf(celdas[f][c].content), c	* sizecell + (sizecell / 2) - filas + tolerancia,filaact + sizecell / 2, paint2);
 					}
 					
 					//Aqui esta la bomba
 					if (celdas[f][c].content == 80
 							&& celdas[f][c].descubierto) {
-						Paint bomba = new Paint();
-						/*bomba.setARGB(255, 255, 0, 0);
-						canvas.drawCircle(c * anchocua + (anchocua / 2),
-								filaact + (anchocua / 2), filas, bomba);*/
-						Picture p = new Picture();
-						canvas.drawPicture(new Picture());
+							
+						Resources resource = getResources();
+						Bitmap bomba =BitmapFactory.decodeResource(resource, R.drawable.ic_launcher);
+						
+						canvas.drawBitmap(bomba, null, new Rect(c * sizecell,filaact,c * sizecell
+								+ sizecell - 2,filaact + sizecell - 2),null);
 					}
 
 				}
@@ -345,7 +468,7 @@ ToggleButton banderaOff;
 
                 do {
                         int fila = (int) (Math.random() * filas);
-                        int columna = (int) (Math.random() * filas);
+                        int columna = (int) (Math.random() * cols);
                         //le agrego posicion actual para primer click
                         if(fila!= fil || columna !=co){
                                 if (celdas[fila][columna].content == 0) {
@@ -421,5 +544,52 @@ ToggleButton banderaOff;
 		}
 	}
 	
+	public class DialogoConfirmacion extends DialogFragment {
+		@Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+	        AlertDialog.Builder builder = 
+	        		new AlertDialog.Builder(getActivity());
+	        
+	        builder.setMessage("¿Desea salir del juego?")
+	        	   .setTitle("Confirmacion")
+	               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                	   	Log.i("Dialogos", "Confirmacion Aceptada.");
+	       					dialog.cancel();
+	       					Intent regreso = new Intent(Buscaminas.this,Principal.class);
+	       					startActivity(regreso);                                                                        
+	                   }
+	               })
+	               .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                	   	Log.i("Dialogos", "Confirmacion Cancelada.");
+	       					dialog.cancel();
+	                   }
+	               });
+
+	        return builder.create();
+	    }
+	}
+	@Override
+	public void onBackPressed() {
+		/*Intent regreso = new Intent(this,Principal.class);
+		startActivity(regreso);  */
+		FragmentManager fragmentManager = getSupportFragmentManager();
+	    DialogoConfirmacion dialogo = new DialogoConfirmacion();
+	    dialogo.show(fragmentManager, "tagConfirmacion" );
+	    
+	return;
+	}
+	
+	public void LanzarIngresoGanador(){
+        if(id!=4){
+        Intent perdiste= new Intent(this,IngresoNombre.class);
+        perdiste.putExtra("dificultad", id);
+        perdiste.putExtra("timer", cronometroText.getText());
+        startActivity(perdiste);
+        }else {
+        	Intent perdiste1= new Intent(this,Principal.class);
+        	startActivity(perdiste1);}
+	}
 }

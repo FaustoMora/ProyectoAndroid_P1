@@ -17,7 +17,7 @@
         android:layout_below="@+id/NewGame"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:background="@drawable/botton"
+        android:background="@drawable/button"
         android:text="Instrucciones" />
 
     <Button
@@ -27,7 +27,7 @@
         android:layout_below="@+id/helpButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:background="@drawable/botton"
+        android:background="@drawable/button"
         android:text="Ranking" />
 
     <Button
@@ -37,7 +37,7 @@
         android:layout_below="@+id/rankingButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-       android:background="@drawable/botton"
+       android:background="@drawable/button"
         android:text="Desarrolladores" />
     
     <Button
@@ -47,7 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/helpButton"
         android:layout_marginTop="142dp"
-        android:background="@drawable/botton"
+        android:background="@drawable/button"
         android:text="Iniciar Juego" />
 
     <Button
@@ -57,7 +57,7 @@
         android:layout_alignLeft="@+id/infoMakersButton"
         android:layout_below="@+id/infoMakersButton"
         android:layout_marginTop="15dp"
-        android:background="@drawable/botton"
+        android:background="@drawable/button"
         android:text="Salir" />
 
 </RelativeLayout>

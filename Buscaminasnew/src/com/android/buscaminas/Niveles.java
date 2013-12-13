@@ -1,16 +1,20 @@
 package com.android.buscaminas;
 
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-public class Niveles extends Activity implements android.view.View.OnClickListener{
+public class Niveles extends FragmentActivity implements android.view.View.OnClickListener{
 	private Button BotonBasico;
 	private Button BotonNormal;
 	private Button BotonExperto;
+	private Button BotonPersonalizado;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +32,9 @@ public class Niveles extends Activity implements android.view.View.OnClickListen
 		BotonExperto = (Button)findViewById(R.id.advancedButton);
 		advancedlevel.setOnClickListener(this);
 		
+		View customlevel = findViewById(R.id.customButton);
+		BotonPersonalizado = (Button)findViewById(R.id.customButton);
+		customlevel.setOnClickListener(this);
 		
 	}
 
@@ -53,6 +60,12 @@ public class Niveles extends Activity implements android.view.View.OnClickListen
 			int i=3;
 			advancedlevel.putExtra("choice",i);
 			startActivity(advancedlevel);
+			}
+		if(vista.getId()==findViewById(R.id.customButton).getId()){
+			Intent personalizadolevel = new Intent(this,Personalizado.class);
+			int i=4;
+			personalizadolevel.putExtra("choice",i);
+			startActivity(personalizadolevel);
 			}
 	}
 }
