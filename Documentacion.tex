@@ -103,7 +103,7 @@ La aplicaci\'on desarrollada corresponde al juego \textsl{Buscaminas} del sistem
 \\El producto ser\'a desarrollado en el entorno Eclipse disponiendo del SDK para Android. El juego ser\'a emulado en el software haciendo uso del software Genymotion as\'i como del mismo emulador que nos provee Eclipse y podr\'a ser ejecutado en dispositivos Android con un API desde la versi\'on 2.1 (Dependiendo de la disponibilidad de componentes presentes en dicho API y que sean usados en nuestro proyecto), hasta las versiones de Andorid m\'as recientes.
 \subsection{\textbf{Objetivos}}
 Para lograr cumplir nuestro prop\'osito planteamos los siguientes objetivos.
-\subsubsection{Objetivos Generales}
+\subsubsection{\textbf{Objetivos Generales}}
 \begin{itemize}
 \item Desarrollar una Aplicaci\'on para el sistema Android.
 \item Conocer la sintaxis y sem\'antica del lenguaje de programaci\'on de la platarforma Android.
@@ -184,6 +184,14 @@ Es por esta raz\'on que es preferible ejecutar la aplicaci\'on en dispositivos d
 
 \section{\textbf{Conclusiones}}
 
+Observamos que Android es un lenguaje que nos presta muchas opciones al momento de programar. Android nos permite programar de distintas maneras y nos da muchas herramientas para lograr que nuestras aplicaciones sean lo m\'as personalizadas posibles.
+\\Aunque se trata de un lenguaje nuevo para nosotros no lo era en su totalidad ya que es muy similar a Java lo cual permiti\'o que el proceso de aprendizaje sea relativamente lento y muy amigable. Observamos tambi\'en que trabajar en Android es m\'as ordenado que trabajar en otros lenguajes ya que el uso de ficheros XML nos facilita entender como esta estructurado el c\'odigo.
+\\Logramos implementar el juego Buscaminas casi en su totalidad. La \'unica funci\'on no implementada fue la de agregar banderas. Lamentablemente, cuando decidimos implementarlas de las tres maneras que sabiamos que era posible tuvimos muchos problemas con respecto a la funcionalidad principal del juego. Las tres formas por las que consideramos posible hacerlo y por las que intentamos cumplir con esta funcionalidad son: Drag and Drop, uso de Botones y uso de Clicks prolongados.
+\\Muchas de las heramienta que Android nos presta fueron cruciales para ciertas funcionalidades de la aplicaci\'on. Por ejemplo, para implementar la parte del Ranking teniamos m\'ultiples opciones, de entre las cuales optamos por el uso de un motor de base de datos incluido en el mismo sistema. Este es SQLite el cual nos permitio hacer que implementar esta funcionalidad sea relativamente sencillo.
+\\Aunque con un poco de problemas, logramos emular exitosamente la mayor\'ia de las pruebas. Los problemas que mencionamos se tratan sobre el tiempo que cuesta emular un dispositivo Android en una computadora. Tuvimos que tratar de asegurarnos con revisiones exhaustivas que un c\'odigo que queirmos probar tenga la menor cantidad de errores de funcionalidad posibles para ahorrar tiempo. La herramienta Genymotion presento los mismos problemas que la que nos proporcionaba Eclipse por lo que la mayor\'ia de veces usamos la \'ultima.
+\\Gracias al soporte que presta el SDK de Android para que nuestra aplicaci\'on sea ejecutable en gran variedad de API's pudimos lograr las pruebas en dispositivos sin problema alguno. Disponiamos de dispositivos m\'oviles Android de diferentes API's y resoluciones y no experimentamos problemas que tengan que ver con sus caracter\'isticas durante las pruebas.
+
+
 \newpage
 \thispagestyle{empty}
 
@@ -220,7 +228,7 @@ Para consultar las m\'as altas puntuaciones obtenidas por los usuarios del juego
 
 	\begin{figure}[h!]
   		\centering
-    		\includegraphics[width=0.3\textwidth]{imagenes/Ranking.PNG}
+    		\includegraphics[width=0.3\textwidth]{imagenes/Ranking.JPG}
   		\caption{Pantalla que contiene las puntuaciones  m\'as sobresalientes de los usuarios}
 		\label{fig:ranking}
 	\end{figure}
@@ -260,7 +268,7 @@ La opci\'on Salir le permite al usuario abandonar el juego. Cierra por completo 
 
 	\begin{figure}[h!]
   		\centering
-    		\includegraphics[width=0.7\textwidth]{imagenes/partidaPerdida.PNG}
+    		\includegraphics[width=0.5\textwidth]{imagenes/partesdeltablero2.PNG}
   		\caption{Tablero de una partida perdida en dificultad Normal}
 		\label{partesdeltablero}
 	\end{figure}
@@ -271,10 +279,11 @@ La pantalla de juego est\'a formada por un tablero de juego en donde se colocan 
 
 \begin{itemize}
 
-\item \textbf{1. Cantidad de minas:} Este bot\'on muestra la cantidad de minas que se encuentran dispersas en el tablero.
+\item \textbf{1. Cantidad de minas:} Este panel muestra la cantidad de minas que se encuentran dispersas en el tablero. Consta de una imagen animada que cambia de acuerdo a las acciones del usuario.
 \item \textbf{2. Bot\'on Reinicio:} Este bot\'on permite reiniciar el juego. Es un bot\'on animado que cambia dependiendo de las acciones que realize el jugador sobre el tablero. Mientras no haya actividad la cara en el bot\'on se mantiene sonriente. Si se se presiona una celda la cara cambiara a una cara de suspenso. Si la celda donde se presiona no tiene mina la cara vuelve a su estado inicial. Sin embargo, si se encuentra una mina en la celda seleccionada la cara cambiara de estado demostrando que se ha perdido la partida.
 \item \textbf{3. Reloj:} El reloj muestra el tiempo que transcurre durante el juego segundo a segundo e inicia su marcha con el primer click sobre el tablero. El tiempo se traduce en el record del jugador. Mientras menos tiempo se tarde el jugador en ganar su puntuaci\'on mejorar\'a.
 \item \textbf{4. Minas:} Las minas se dispersan en el tablero al momento de hacer el primer click. Una mina permanece escondida hasta que el jugador descubre una celda que la contenga. Cuando se descubre una celda que conten\'ia una mina se pierde la partida.
+\item \textbf{5. Mensajes:} Los mensajes se presentan al final de un juego y pueden ser mensajes de partida perdida o ganada. Los mensajes permanecen temporalmente en pantalla.
 
 \end{itemize}
 
