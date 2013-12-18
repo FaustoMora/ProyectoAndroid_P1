@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ranking"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
+    </FrameLayout>
+
+	  <EditText
+	      android:id="@+id/tablaValoresNormal"
+	      android:layout_width="400dp"
+	      android:layout_height="110dp"
+	      android:layout_below="@+id/normalLabel"
+	      android:layout_centerHorizontal="true"
+	      android:background="@drawable/botton"
+	      android:cursorVisible="false"
+	      android:editable="false"
+	      android:ems="10"
+	      android:gravity="center"
+	      android:scrollbars="vertical"
+	      android:textSize="15dp"
+	      android:textStyle="bold" />
+
+	  <EditText
+	      android:id="@+id/tablaValoresExperto"
+	      android:layout_width="400dp"
+	      android:layout_height="110dp"
+	      android:layout_alignLeft="@+id/tablaValoresNormal"
+	      android:layout_below="@+id/ExpertLabel"
+	      android:background="@drawable/botton"
+	      android:cursorVisible="false"
+	      android:editable="false"
+	      android:ems="10"
+	      android:gravity="center"
+	      android:scrollbars="vertical"
+	      android:textSize="15dp"
+	      android:textStyle="bold" />
+
+	  <TextView
+	      android:id="@+id/ExpertLabel"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_below="@+id/tablaValoresNormal"
+	      android:layout_centerHorizontal="true"
+	      android:text="Nivel Experto"
+	      android:textSize="30dp"
+	      android:textStyle="bold" />
+
+	  <TextView
+	      android:id="@+id/EasyLabel"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_above="@+id/tablaValores"
+	      android:layout_centerHorizontal="true"
+	      android:text="Nivel Principiante"
+	      android:textSize="30dp"
+	      android:textStyle="bold" />
+
+	  <EditText
+	      android:id="@+id/tablaValores"
+	      android:layout_width="400dp"
+	      android:layout_height="110dp"
+	      android:layout_alignLeft="@+id/tablaValoresNormal"
+	      android:layout_centerVertical="true"
+	      android:background="@drawable/botton"
+	      android:cursorVisible="false"
+	      android:editable="false"
+	      android:ems="10"
+	      android:gravity="center"
+	      android:scrollbars="vertical"
+	      android:textSize="15dp"
+	      android:textStyle="bold" />
+
+	  <TextView
+	      android:id="@+id/normalLabel"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_alignLeft="@+id/ExpertLabel"
+	      android:layout_below="@+id/tablaValores"
+	      android:text="Nivel Normal"
+	      android:textSize="30dp"
+	      android:textStyle="bold" />
+
+</RelativeLayout>

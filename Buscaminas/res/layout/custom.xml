@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@drawable/dificultad">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        
+
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp" />
+
+    <EditText
+        android:id="@+id/colums"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mines"
+        android:layout_alignTop="@+id/textView3"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="50dp"
+        android:textColor="@android:color/darker_gray" 
+		 android:background="@drawable/botton" >
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_marginBottom="27dp"
+        android:layout_marginLeft="45dp"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="Columnas"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/startCustom"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_marginBottom="43dp"
+        android:text="N. minas"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/mines"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_marginLeft="56dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:ems="10"
+        android:textSize="40dp"
+        android:inputType="number"
+         android:background="@drawable/botton"
+        android:textColor="@android:color/darker_gray"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_marginBottom="40dp"
+        android:text="Filas"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:background="@drawable/button"
+        
+        android:textStyle="bold" 
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        />
+
+    <EditText
+        android:id="@+id/rows"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/colums"
+        android:layout_alignTop="@+id/textView1"
+        android:ems="10"
+        android:textSize="50dp"
+        android:background="@drawable/botton"
+        android:inputType="number"
+        android:textColor="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/startCustom"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="103dp"
+        android:background="@drawable/button"
+        android:text="Iniciar Juego"
+        android:textSize="40dp" />
+
+</RelativeLayout>

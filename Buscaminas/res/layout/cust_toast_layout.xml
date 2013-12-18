@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/custom_toast"
+    android:background="@android:color/background_dark" >
+
+    <ImageView
+        android:id="@+id/danger_mines"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_alignLeft="@+id/booom_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/booom_text"
+        android:layout_margin="5dip"
+        android:src="@drawable/dangermines" />
+
+    <TextView
+        android:id="@+id/booom_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/danger_mines"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:text="BOOOOMMMM"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray" />
+
+</RelativeLayout>
